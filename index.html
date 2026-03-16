@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lumen Studio Co. — Brand & Web Design for Founders</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#1C1A16;
+  --ink2:#706C64;
+  --white:#FFFFFF;
+  --offwhite:#FAF9F6;
+  --border:#E8E5DE;
+  --lime:#C8F04D;
+  --lime-dim:#8aaa2a;
+  --lime-s:#EEF9C4;
+  --sky:#A8DCFF;
+  --sky-s:#DCF0FF;
+  --lav:#C9B8FF;
+  --lav-s:#EDE8FF;
+  --peach:#FFD0A0;
+  --peach-s:#FFF0DC;
+  --coral:#FF8A7A;
+  --coral-s:#FFE8E4;
+  --mint:#A8F0D4;
+  --mint-s:#E0FBF0;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--white);
+  color:var(--ink);
+  font-family:'DM Sans',sans-serif;
+  font-weight:300;
+  cursor:none;
+  overflow-x:hidden;
+}
+
+/* CURSOR */
+#cursor{
+  position:fixed;width:8px;height:8px;
+  background:var(--ink);border-radius:50%;
+  pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:width 0.2s cubic-bezier(0.16,1,0.3,1),height 0.2s cubic-bezier(0.16,1,0.3,1),background 0.2s;
+  mix-blend-mode:multiply;
+}
+#cursor.big{width:36px;height:36px;background:var(--lime)}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1.4rem 3.5rem;z-index:100;
+  background:rgba(255,255,255,0.9);
+  border-bottom:1px solid transparent;
+  backdrop-filter:blur(14px);
+  transition:border-color 0.4s;
+}
+nav.scrolled{border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo-text{
+  font-family:'Playfair Display',serif;
+  font-size:1.05rem;font-weight:700;
+  color:var(--ink);letter-spacing:-0.01em;line-height:1;
+}
+.nav-logo-sub{
+  font-family:'DM Mono',monospace;
+  font-size:0.52rem;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--ink2);margin-top:2px;
+}
+.nav-links{display:flex;gap:2.5rem;list-style:none;align-items:center}
+.nav-links a{
+  font-family:'DM Mono',monospace;
+  font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--ink2);text-decoration:none;transition:color 0.2s;
+}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{
+  background:var(--lime)!important;
+  color:var(--ink)!important;
+  padding:0.5rem 1.4rem!important;
+  font-weight:500!important;
+  letter-spacing:0.1em!important;
+  transition:opacity 0.2s!important;
+}
+.nav-cta:hover{opacity:0.82}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:0 3.5rem;
+  position:relative;overflow:hidden;
+  background:var(--white);
+  border-bottom:1px solid var(--border);
+}
+/* subtle lime wash top-right */
+.hero::after{
+  content:'';position:absolute;
+  top:-120px;right:-80px;
+  width:480px;height:480px;
+  background:radial-gradient(circle,rgba(200,240,77,0.18) 0%,transparent 70%);
+  pointer-events:none;
+}
+/* diagonal line */
+.hero-line{
+  position:absolute;right:9%;top:0;bottom:0;
+  width:1px;background:var(--border);
+  transform:rotate(7deg);transform-origin:top;
+}
+.hero-eyebrow{
+  font-family:'DM Mono',monospace;
+  font-size:0.6rem;letter-spacing:0.32em;text-transform:uppercase;
+  color:var(--lime-dim);margin-bottom:2rem;
+  display:flex;align-items:center;gap:12px;
+  opacity:0;transform:translateY(12px);
+  animation:fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.3s forwards;
+  position:relative;z-index:2;
+}
+.eyebrow-star{animation:spinSlow 14s linear infinite;display:inline-block}
+@keyframes spinSlow{to{transform:rotate(360deg)}}
+
+.hero-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(3.2rem,7.5vw,7rem);
+  line-height:0.97;font-weight:700;
+  letter-spacing:-0.02em;
+  max-width:880px;
+  position:relative;z-index:2;
+}
+.hero-title .word{
+  display:inline-block;
+  opacity:0;transform:translateY(28px);
+  margin-right:0.18em;
+}
+.hero-title .lime{color:var(--lime-dim);font-style:italic;font-weight:400}
+
+.hero-sub{
+  max-width:400px;margin-top:2.25rem;
+  font-size:0.92rem;line-height:1.85;
+  color:var(--ink2);font-weight:300;
+  opacity:0;transform:translateY(12px);
+  animation:fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 1.2s forwards;
+  position:relative;z-index:2;
+}
+/* sharp rect CTA — exact v1 pattern */
+.hero-cta{
+  display:inline-flex;align-items:center;gap:0.75rem;
+  margin-top:2.75rem;
+  font-family:'DM Mono',monospace;
+  font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--ink);text-decoration:none;
+  border:1.5px solid var(--ink);
+  padding:1rem 2rem;
+  position:relative;overflow:hidden;
+  opacity:0;transform:translateY(12px);
+  animation:fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 1.5s forwards;
+  transition:color 0.3s,border-color 0.3s;
+  z-index:2;
+}
+.hero-cta::before{
+  content:'';position:absolute;inset:0;
+  background:var(--lime);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+.hero-cta:hover::before{transform:scaleX(1)}
+.hero-cta:hover{color:var(--ink);border-color:var(--lime)}
+.hero-cta span,.hero-cta svg{position:relative;z-index:1}
+
+.hero-scroll{
+  position:absolute;bottom:2.5rem;left:3.5rem;
+  font-family:'DM Mono',monospace;
+  font-size:0.52rem;letter-spacing:0.28em;text-transform:uppercase;
+  color:var(--ink2);
+  display:flex;align-items:center;gap:1rem;
+  opacity:0;animation:fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 2s forwards;z-index:2;
+}
+.hero-scroll::before{content:'';width:36px;height:1px;background:var(--border)}
+
+/* MARQUEE */
+.marquee-wrap{
+  padding:1.25rem 0;
+  border-bottom:1px solid var(--border);
+  overflow:hidden;white-space:nowrap;
+  background:var(--offwhite);
+}
+.marquee-track{display:inline-block;animation:marquee 22s linear infinite}
+.marquee-track span{
+  font-family:'DM Mono',monospace;
+  font-size:0.58rem;letter-spacing:0.26em;text-transform:uppercase;
+  color:var(--ink2);margin:0 2.5rem;
+}
+.marquee-track .accent{color:var(--lime-dim);margin:0 1.25rem}
+
+/* COLOUR STRIPE */
+.stripe{
+  height:5px;
+  background:repeating-linear-gradient(90deg,
+    var(--lime) 0px,var(--lime) 28px,
+    var(--sky) 28px,var(--sky) 56px,
+    var(--lav) 56px,var(--lav) 84px,
+    var(--peach) 84px,var(--peach) 112px,
+    var(--coral) 112px,var(--coral) 140px,
+    var(--mint) 140px,var(--mint) 168px
+  );
+}
+
+/* SECTIONS */
+.section{padding:7rem 3.5rem;border-bottom:1px solid var(--border)}
+.section.bg-off{background:var(--offwhite)}
+.section-label{
+  font-family:'DM Mono',monospace;
+  font-size:0.55rem;letter-spacing:0.36em;text-transform:uppercase;
+  color:var(--ink2);margin-bottom:1rem;
+  display:flex;align-items:center;gap:1.25rem;
+}
+.section-label::before{content:'';width:24px;height:1px;background:var(--lime)}
+.section-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.8rem,3vw,2.9rem);
+  font-weight:700;line-height:1.1;margin-bottom:3.5rem;
+}
+.section-title em{font-style:italic;font-weight:400;color:var(--ink2)}
+
+/* ── SERVICE ROWS ── */
+.svc-rows{border-top:1.5px solid var(--border)}
+.svc-row{
+  display:grid;grid-template-columns:1fr 1fr 1fr auto;
+  gap:0;
+  border-bottom:1px solid var(--border);
+  padding:3rem 0 3rem 2rem;
+  position:relative;
+  transition:background 0.3s cubic-bezier(0.16,1,0.3,1);
+  align-items:start;
+}
+.svc-row::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;
+  width:3px;background:var(--lime);
+  transform:scaleY(0);transform-origin:top;
+  transition:transform 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+.svc-row:hover::before{transform:scaleY(1)}
+.svc-row:hover{background:rgba(200,240,77,0.03)}
+
+.svc-col{padding:0 2.5rem}
+.svc-col:first-child{padding-left:0}
+.svc-col-right{padding:0 0 0 2rem;display:flex;flex-direction:column;align-items:flex-end;gap:1.25rem}
+
+.svc-eyebrow{
+  font-family:'DM Mono',monospace;
+  font-size:0.52rem;letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--ink2);margin-bottom:0.75rem;
+  display:flex;align-items:center;gap:8px;
+}
+.svc-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.svc-name{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.4rem,2vw,1.9rem);font-weight:700;line-height:1.1;
+  margin-bottom:0.75rem;color:var(--ink);
+}
+.svc-name em{font-style:italic;font-weight:400;color:var(--ink2)}
+.svc-tagline{
+  font-size:0.82rem;line-height:1.75;color:var(--ink2);
+  margin-bottom:1.25rem;
+}
+.svc-includes-label{
+  font-family:'DM Mono',monospace;
+  font-size:0.5rem;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--ink2);margin-bottom:0.6rem;
+}
+.svc-includes{font-size:0.8rem;line-height:1.85;color:var(--ink2)}
+
+.svc-deliverables{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:0.5rem}
+.svc-pill{
+  font-family:'DM Mono',monospace;
+  font-size:0.5rem;letter-spacing:0.1em;text-transform:uppercase;
+  border:1px solid var(--border);padding:0.28rem 0.7rem;
+  color:var(--ink2);
+  transition:border-color 0.2s,color 0.2s;
+}
+.svc-row:hover .svc-pill{border-color:rgba(138,170,42,0.4);color:var(--ink)}
+
+.svc-timeline{
+  font-family:'DM Mono',monospace;
+  font-size:0.5rem;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--ink2);margin-top:0.5rem;
+  display:flex;align-items:center;gap:6px;
+}
+.svc-timeline::before{content:'';width:14px;height:1px;background:var(--border)}
+
+.svc-price{
+  font-family:'Playfair Display',serif;
+  font-size:1.55rem;font-weight:700;color:var(--ink);
+  white-space:nowrap;text-align:right;
+}
+.svc-price small{
+  display:block;font-family:'DM Mono',monospace;
+  font-size:0.5rem;letter-spacing:0.14em;text-transform:uppercase;
+  font-weight:400;color:var(--ink2);margin-top:3px;
+}
+/* sharp rect CTA reused for service rows */
+.svc-cta{
+  display:inline-flex;align-items:center;gap:0.6rem;
+  font-family:'DM Mono',monospace;
+  font-size:0.56rem;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--ink);text-decoration:none;
+  border:1.5px solid var(--ink);
+  padding:0.7rem 1.4rem;
+  position:relative;overflow:hidden;
+  white-space:nowrap;
+  transition:color 0.3s,border-color 0.3s;
+}
+.svc-cta::before{
+  content:'';position:absolute;inset:0;
+  background:var(--lime);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+.svc-cta:hover::before{transform:scaleX(1)}
+.svc-cta:hover{color:var(--ink);border-color:var(--lime)}
+.svc-cta span,.svc-cta svg{position:relative;z-index:1}
+
+/* ── ADD-ONS ── */
+.addons-label{
+  font-family:'DM Mono',monospace;
+  font-size:0.52rem;letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--ink2);margin-bottom:1.75rem;
+  display:flex;align-items:center;gap:1rem;
+}
+.addons-label::before{content:'';width:20px;height:1px;background:var(--lav)}
+.addons-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  border:1.5px solid var(--border);
+}
+.addon-card{
+  padding:2rem 2rem;
+  border-right:1px solid var(--border);
+  position:relative;overflow:hidden;
+  transition:background 0.3s;
+}
+.addon-card:last-child{border-right:none}
+.addon-card::after{
+  content:'';position:absolute;top:0;left:0;right:0;
+  height:2px;
+  transform:scaleX(0);transform-origin:left;
+  transition:transform 0.45s cubic-bezier(0.16,1,0.3,1);
+}
+.addon-card:hover::after{transform:scaleX(1)}
+.addon-card:hover{background:var(--offwhite)}
+.addon-num{
+  font-family:'DM Mono',monospace;
+  font-size:0.5rem;letter-spacing:0.22em;color:var(--ink2);margin-bottom:0.75rem;
+}
+.addon-name{
+  font-family:'Playfair Display',serif;
+  font-size:1.15rem;font-weight:700;line-height:1.15;
+  margin-bottom:0.6rem;color:var(--ink);
+}
+.addon-name em{font-style:italic;font-weight:400;color:var(--ink2)}
+.addon-desc{font-size:0.78rem;line-height:1.75;color:var(--ink2);margin-bottom:1.25rem}
+.addon-price{
+  font-family:'DM Mono',monospace;
+  font-size:0.7rem;font-weight:500;letter-spacing:0.06em;
+  margin-bottom:1.25rem;
+}
+.addon-pills{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:1.5rem}
+.addon-pill{
+  font-family:'DM Mono',monospace;
+  font-size:0.48rem;letter-spacing:0.1em;text-transform:uppercase;
+  border:1px solid var(--border);padding:0.25rem 0.65rem;
+  color:var(--ink2);
+}
+.addon-cta{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  font-family:'DM Mono',monospace;
+  font-size:0.52rem;letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--ink2);text-decoration:none;
+  border-bottom:1px solid var(--border);
+  padding-bottom:2px;
+  transition:color 0.2s,border-color 0.2s;
+}
+.addon-cta:hover{color:var(--ink);border-color:var(--ink)}
+
+/* ── BOOKING ── */
+.booking-section{
+  padding:7rem 3.5rem;
+  border-bottom:1px solid var(--border);
+  background:var(--offwhite);
+}
+.booking-inner{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:4rem;align-items:start;
+}
+.booking-left{}
+.booking-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.8rem,2.8vw,2.6rem);
+  font-weight:700;line-height:1.1;margin-bottom:1.25rem;
+}
+.booking-title em{font-style:italic;font-weight:400;color:var(--ink2)}
+.booking-desc{
+  font-size:0.88rem;line-height:1.85;color:var(--ink2);margin-bottom:2rem;
+}
+.booking-facts{display:flex;flex-direction:column;gap:0.75rem;margin-bottom:2.5rem}
+.booking-fact{
+  display:flex;align-items:flex-start;gap:0.9rem;
+  font-size:0.82rem;color:var(--ink2);line-height:1.6;
+}
+.booking-fact-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:6px}
+.booking-calendar{
+  background:var(--white);
+  border:1.5px solid var(--border);
+  position:relative;
+  overflow:hidden;
+  height:520px;
+}
+.booking-calendar::before{
+  content:'';position:absolute;top:0;left:0;right:0;
+  height:3px;z-index:2;
+  background:repeating-linear-gradient(90deg,
+    var(--lime) 0,var(--lime) 20px,
+    var(--sky) 20px,var(--sky) 40px,
+    var(--lav) 40px,var(--lav) 60px,
+    var(--peach) 60px,var(--peach) 80px
+  );
+}
+
+/* STATEMENT */
+.statement{
+  padding:7rem 3.5rem;border-bottom:1px solid var(--border);
+  max-width:800px;
+}
+.statement p{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.7rem,3vw,2.65rem);
+  font-weight:400;line-height:1.45;color:var(--ink);
+  opacity:0;transform:translateY(20px);
+}
+.statement p.vis{animation:fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) forwards}
+.statement em{color:var(--lime-dim);font-style:italic}
+
+/* PROCESS */
+.process-steps{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border:1.5px solid var(--border);
+}
+.process-step{
+  padding:2.5rem 2rem;border-right:1px solid var(--border);
+  opacity:0;transform:translateY(14px);
+}
+.process-step:last-child{border-right:none}
+.process-step.vis{animation:fadeUp 0.65s cubic-bezier(0.16,1,0.3,1) forwards}
+.step-dot{width:9px;height:9px;border-radius:50%;margin-bottom:1.25rem}
+.step-n{
+  font-family:'DM Mono',monospace;font-size:0.52rem;
+  letter-spacing:0.24em;color:var(--ink2);margin-bottom:0.6rem;
+}
+.step-name{
+  font-family:'Playfair Display',serif;
+  font-size:1.2rem;font-weight:700;color:var(--ink);margin-bottom:0.6rem;
+}
+.step-desc{font-size:0.78rem;line-height:1.8;color:var(--ink2)}
+
+/* CTA */
+.cta-section{
+  padding:9rem 3.5rem;
+  background:var(--ink);
+  display:flex;flex-direction:column;align-items:center;
+  text-align:center;position:relative;overflow:hidden;
+}
+.cta-bg-word{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  font-family:'Playfair Display',serif;
+  font-size:clamp(7rem,16vw,16rem);
+  font-weight:700;color:transparent;
+  -webkit-text-stroke:1px rgba(200,240,77,0.07);
+  white-space:nowrap;pointer-events:none;letter-spacing:0.1em;
+}
+.cta-eyebrow{
+  font-family:'DM Mono',monospace;font-size:0.56rem;
+  letter-spacing:0.28em;text-transform:uppercase;
+  color:rgba(255,255,255,0.35);margin-bottom:1.5rem;
+  display:flex;align-items:center;gap:0.75rem;
+  position:relative;z-index:1;
+}
+.cta-heading{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.2rem,4.5vw,4.2rem);
+  font-weight:700;line-height:1.1;color:#fff;
+  margin-bottom:1.25rem;position:relative;z-index:1;
+}
+.cta-heading em{color:var(--lime);font-style:italic;font-weight:400}
+.cta-sub{
+  font-size:0.85rem;color:rgba(255,255,255,0.4);
+  margin-bottom:3rem;position:relative;z-index:1;
+}
+.cta-email{
+  font-family:'Playfair Display',serif;
+  font-size:1.3rem;font-style:italic;font-weight:400;
+  color:var(--lime);text-decoration:none;
+  border-bottom:1px solid rgba(200,240,77,0.3);
+  padding-bottom:0.25rem;
+  position:relative;z-index:1;
+  transition:color 0.25s,border-color 0.25s;
+}
+.cta-email:hover{color:#fff;border-color:rgba(255,255,255,0.3)}
+
+/* FOOTER */
+footer{
+  padding:2rem 3.5rem;
+  background:var(--ink);
+  border-top:1px solid rgba(255,255,255,0.07);
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:1rem;
+}
+.footer-left{display:flex;align-items:center;gap:10px}
+.footer-logo-text{
+  font-family:'Playfair Display',serif;
+  font-size:1rem;font-weight:700;color:#fff;
+}
+.footer-meta{
+  font-family:'DM Mono',monospace;
+  font-size:0.55rem;letter-spacing:0.14em;
+  color:rgba(255,255,255,0.28);margin-top:2px;
+}
+.footer-links{display:flex;gap:2rem}
+.footer-links a{
+  font-family:'DM Mono',monospace;
+  font-size:0.55rem;letter-spacing:0.14em;text-transform:uppercase;
+  color:rgba(255,255,255,0.3);text-decoration:none;transition:color 0.2s;
+}
+.footer-links a:hover{color:var(--lime)}
+
+/* ANIMATIONS */
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.reveal{opacity:0;transform:translateY(20px)}
+.reveal.vis{animation:fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) forwards}
+
+@media(max-width:900px){
+  nav{padding:1.1rem 1.5rem}
+  .nav-links{display:none}
+  .hero,.section,.statement,.cta-section{padding-left:1.5rem;padding-right:1.5rem}
+  footer{padding:1.5rem;flex-direction:column;align-items:flex-start}
+  .services-grid,.process-steps{grid-template-columns:1fr}
+  .svc-row{grid-template-columns:1fr;gap:2rem}
+  .svc-col{padding:0}
+  .svc-col-right{align-items:flex-start}
+  .addons-grid{grid-template-columns:1fr}
+  .addon-card{border-right:none;border-bottom:1px solid var(--border)}
+  .addon-card:last-child{border-bottom:none}
+  .booking-inner{grid-template-columns:1fr;gap:3rem}
+  .process-step{border-right:none;border-bottom:1px solid var(--border)}
+  .process-step:last-child{border-bottom:none}
+  .price-table{display:block;overflow-x:auto}
+}
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <svg width="26" height="26" viewBox="0 0 100 100">
+      <g transform="translate(50,50)">
+        <ellipse rx="8" ry="42" fill="#C8F04D" transform="rotate(0)"/>
+        <ellipse rx="8" ry="42" fill="#C8F04D" transform="rotate(45)"/>
+        <ellipse rx="8" ry="42" fill="#C8F04D" transform="rotate(90)"/>
+        <ellipse rx="8" ry="42" fill="#C8F04D" transform="rotate(135)"/>
+      </g>
+    </svg>
+    <div>
+      <div class="nav-logo-text">Lumen.</div>
+      <div class="nav-logo-sub">Studio Co.</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="https://instagram.com/luumen.studio" target="_blank" aria-label="Instagram" style="display:flex;align-items:center">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
+    </a></li>
+    <li><a href="https://www.linkedin.com/company/lumen-studio-co-in/" target="_blank" aria-label="LinkedIn" style="display:flex;align-items:center">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+    </a></li>
+    <li><a href="https://cal.com/lumen-studio-co/discoverycall" target="_blank" class="nav-cta">Start a project →</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-line"></div>
+
+  <p class="hero-eyebrow">
+    <span class="eyebrow-star">
+      <svg width="11" height="11" viewBox="0 0 100 100">
+        <g transform="translate(50,50)">
+          <ellipse rx="6" ry="36" fill="#C8F04D" transform="rotate(0)"/>
+          <ellipse rx="6" ry="36" fill="#C8F04D" transform="rotate(45)"/>
+          <ellipse rx="6" ry="36" fill="#C8F04D" transform="rotate(90)"/>
+          <ellipse rx="6" ry="36" fill="#C8F04D" transform="rotate(135)"/>
+        </g>
+      </svg>
+    </span>
+    Boutique Design Studio · Est. 2024
+  </p>
+
+  <h1 class="hero-title">
+    <span class="word">Design</span>
+    <span class="word">that</span>
+    <span class="word lime">illuminates</span><br>
+    <span class="word">what</span>
+    <span class="word">you</span>
+    <span class="word">build.</span>
+  </h1>
+
+  <p class="hero-sub">Brand identity, web design, and AI automation for founders who are done blending in.</p>
+
+  <a href="https://cal.com/lumen-studio-co/discoverycall" target="_blank" class="hero-cta">
+    <span>Start a project</span>
+    <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+      <path d="M1 7H13M7 1L13 7L7 13" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+    </svg>
+  </a>
+
+  <div class="hero-scroll">Scroll to explore</div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>Brand Identity</span><span class="accent">✦</span>
+    <span>Web Design</span><span class="accent">✦</span>
+    <span>AI Automation</span><span class="accent">✦</span>
+    <span>UI / UX</span><span class="accent">✦</span>
+    <span>Framer</span><span class="accent">✦</span>
+    <span>LinkedIn Branding</span><span class="accent">✦</span>
+    <span>Brand Strategy</span><span class="accent">✦</span>
+    <span>Design Retainer</span><span class="accent">✦</span>
+    <span>Social Kits</span><span class="accent">✦</span>
+    <span>Brand Identity</span><span class="accent">✦</span>
+    <span>Web Design</span><span class="accent">✦</span>
+    <span>AI Automation</span><span class="accent">✦</span>
+    <span>UI / UX</span><span class="accent">✦</span>
+    <span>Framer</span><span class="accent">✦</span>
+    <span>LinkedIn Branding</span><span class="accent">✦</span>
+    <span>Brand Strategy</span><span class="accent">✦</span>
+    <span>Design Retainer</span><span class="accent">✦</span>
+    <span>Social Kits</span><span class="accent">✦</span>
+  </div>
+</div>
+<div class="stripe"></div>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="section-label">Services</div>
+  <div class="section-title">What we <em>offer</em></div>
+
+  <div class="svc-rows">
+
+    <!-- 01 Brand Identity -->
+    <div class="svc-row reveal">
+      <div class="svc-col">
+        <div class="svc-eyebrow"><div class="svc-dot" style="background:var(--lime)"></div>01 — Brand Identity</div>
+        <h3 class="svc-name">The brand you've<br>always <em>imagined.</em></h3>
+        <p class="svc-tagline">A visual system built from who you actually are — strategy first, aesthetics second. You leave with a brand that feels unmistakably yours.</p>
+        <div class="svc-timeline">2 – 3 weeks · 2 revision rounds</div>
+      </div>
+      <div class="svc-col">
+        <div class="svc-includes-label">What's included</div>
+        <div class="svc-includes">Brand strategy session · Logo suite (primary, secondary, mark) · Colour palette · Typography system · Brand voice guide · Brand guidelines PDF</div>
+      </div>
+      <div class="svc-col">
+        <div class="svc-includes-label">Deliverables</div>
+        <div class="svc-deliverables">
+          <span class="svc-pill">Logo suite</span>
+          <span class="svc-pill">Colour system</span>
+          <span class="svc-pill">Typography</span>
+          <span class="svc-pill">Brand voice</span>
+          <span class="svc-pill">Brand PDF</span>
+          <span class="svc-pill">All source files</span>
+        </div>
+      </div>
+      <div class="svc-col-right">
+        <div class="svc-price">From $600<small>one-time</small></div>
+        <a href="https://cal.com/lumen-studio-co/discoverycall" target="_blank" class="svc-cta"><span>Book a call</span><svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M1 7H13M7 1L13 7L7 13" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></a>
+      </div>
+    </div>
+
+    <!-- 02 Brand + Website -->
+    <div class="svc-row reveal" style="animation-delay:0.05s">
+      <div class="svc-col">
+        <div class="svc-eyebrow"><div class="svc-dot" style="background:var(--sky)"></div>02 — Brand + Website</div>
+        <h3 class="svc-name">The full package.<br><em>Identity meets web.</em></h3>
+        <p class="svc-tagline">Everything in Brand Identity, plus a Framer site that converts. Built to launch — mobile optimised, SEO-ready, copy-directed.</p>
+        <div class="svc-timeline">4 – 6 weeks · Most popular</div>
+      </div>
+      <div class="svc-col">
+        <div class="svc-includes-label">What's included</div>
+        <div class="svc-includes">Full brand identity system · 4–6 page Framer site · Copy direction · Mobile-first design · On-page SEO setup · Launch support · 1-week post-launch fixes</div>
+      </div>
+      <div class="svc-col">
+        <div class="svc-includes-label">Deliverables</div>
+        <div class="svc-deliverables">
+          <span class="svc-pill">Full brand</span>
+          <span class="svc-pill">Framer site</span>
+          <span class="svc-pill">Copy direction</span>
+          <span class="svc-pill">Mobile optimised</span>
+          <span class="svc-pill">SEO setup</span>
+          <span class="svc-pill">Launch ready</span>
+        </div>
+      </div>
+      <div class="svc-col-right">
+        <div class="svc-price">From $1,200<small>one-time</small></div>
+        <a href="https://cal.com/lumen-studio-co/discoverycall" target="_blank" class="svc-cta"><span>Book a call</span><svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M1 7H13M7 1L13 7L7 13" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></a>
+      </div>
+    </div>
+
+    <!-- 03 Social Media Kit -->
+    <div class="svc-row reveal" style="animation-delay:0.1s">
+      <div class="svc-col">
+        <div class="svc-eyebrow"><div class="svc-dot" style="background:var(--lav)"></div>03 — Social Media Kit</div>
+        <h3 class="svc-name">Show up. Every week.<br><em>Without the stress.</em></h3>
+        <p class="svc-tagline">A ready-to-use content system so your brand looks cohesive across every post, story, and reel — without starting from scratch each time.</p>
+        <div class="svc-timeline">1 – 2 weeks turnaround</div>
+      </div>
+      <div class="svc-col">
+        <div class="svc-includes-label">What's included</div>
+        <div class="svc-includes">12 branded Canva/Figma templates (posts, stories, reels covers) · Content pillar guide · 30-day content calendar · Caption tone guide · Hashtag strategy</div>
+      </div>
+      <div class="svc-col">
+        <div class="svc-includes-label">Deliverables</div>
+        <div class="svc-deliverables">
+          <span class="svc-pill">12 templates</span>
+          <span class="svc-pill">Content pillars</span>
+          <span class="svc-pill">30-day plan</span>
+          <span class="svc-pill">Caption guide</span>
+          <span class="svc-pill">Hashtag strategy</span>
+        </div>
+      </div>
+      <div class="svc-col-right">
+        <div class="svc-price">From $350<small>one-time</small></div>
+        <a href="https://cal.com/lumen-studio-co/discoverycall" target="_blank" class="svc-cta"><span>Book a call</span><svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M1 7H13M7 1L13 7L7 13" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></a>
+      </div>
+    </div>
+
+    <!-- 04 LinkedIn Personal Branding -->
+    <div class="svc-row reveal" style="animation-delay:0.15s">
+      <div class="svc-col">
+        <div class="svc-eyebrow"><div class="svc-dot" style="background:var(--peach)"></div>04 — LinkedIn Personal Branding</div>
+        <h3 class="svc-name">Built for creative<br><em>founders who lead.</em></h3>
+        <p class="svc-tagline">Your LinkedIn should attract opportunities, not collect dust. We turn your profile into a platform — positioning, visuals, and a content system that works.</p>
+        <div class="svc-timeline">1 – 2 weeks turnaround</div>
+      </div>
+      <div class="svc-col">
+        <div class="svc-includes-label">What's included</div>
+        <div class="svc-includes">Profile audit + full rewrite · Custom banner design · Positioning statement · Content pillar strategy · 30-post content calendar · Engagement playbook</div>
+      </div>
+      <div class="svc-col">
+        <div class="svc-includes-label">Deliverables</div>
+        <div class="svc-deliverables">
+          <span class="svc-pill">Profile rewrite</span>
+          <span class="svc-pill">Banner design</span>
+          <span class="svc-pill">Positioning</span>
+          <span class="svc-pill">30 posts</span>
+          <span class="svc-pill">Content pillars</span>
+          <span class="svc-pill">Engagement guide</span>
+        </div>
+      </div>
+      <div class="svc-col-right">
+        <div class="svc-price">From $400<small>one-time</small></div>
+        <a href="https://cal.com/lumen-studio-co/discoverycall" target="_blank" class="svc-cta"><span>Book a call</span><svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M1 7H13M7 1L13 7L7 13" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ADD-ONS -->
+  <div style="margin-top:4rem" class="reveal">
+    <div class="addons-label">Add-ons · Bolt onto any package</div>
+    <div class="addons-grid">
+
+      <div class="addon-card" style="--accent:var(--lav)">
+        <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--lav);transform:scaleX(0);transform-origin:left;transition:transform 0.45s cubic-bezier(0.16,1,0.3,1)" class="addon-top-line"></div>
+        <div class="addon-num">A — 01</div>
+        <div class="addon-name">Design <em>Retainer</em></div>
+        <div class="addon-desc">Your designer on call every month — social posts, pitch decks, ad creatives, landing pages. Whatever the business needs that month.</div>
+        <div class="addon-price" style="color:var(--ink)">$500 <span style="font-size:0.6rem;color:var(--ink2);font-weight:300">/ month</span></div>
+        <div class="addon-pills">
+          <span class="addon-pill">10 hrs/month</span>
+          <span class="addon-pill">Priority booking</span>
+          <span class="addon-pill">Async comms</span>
+        </div>
+        <a href="https://cal.com/lumen-studio-co/discoverycall" target="_blank" class="addon-cta">Add to project <svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M1 7H13M7 1L13 7L7 13" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></a>
+      </div>
+
+      <div class="addon-card">
+        <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--coral);transform:scaleX(0);transform-origin:left;transition:transform 0.45s cubic-bezier(0.16,1,0.3,1)" class="addon-top-line"></div>
+        <div class="addon-num">A — 02</div>
+        <div class="addon-name">Ad Creatives <em>+ Copy</em></div>
+        <div class="addon-desc">Scroll-stopping ad creatives with conversion copy — static and animated formats for Meta, Google, and LinkedIn campaigns.</div>
+        <div class="addon-price" style="color:var(--ink)">From $250 <span style="font-size:0.6rem;color:var(--ink2);font-weight:300">/ set of 5</span></div>
+        <div class="addon-pills">
+          <span class="addon-pill">Static ads</span>
+          <span class="addon-pill">Animated formats</span>
+          <span class="addon-pill">Ad copy</span>
+          <span class="addon-pill">Multi-platform</span>
+        </div>
+        <a href="https://cal.com/lumen-studio-co/discoverycall" target="_blank" class="addon-cta">Add to project <svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M1 7H13M7 1L13 7L7 13" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></a>
+      </div>
+
+      <div class="addon-card">
+        <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--mint);transform:scaleX(0);transform-origin:left;transition:transform 0.45s cubic-bezier(0.16,1,0.3,1)" class="addon-top-line"></div>
+        <div class="addon-num">A — 03</div>
+        <div class="addon-name">Presentations <em>+ Pitch Decks</em></div>
+        <div class="addon-desc">Investor decks, client proposals, and keynote presentations designed to land the room. Structured for clarity, designed to impress.</div>
+        <div class="addon-price" style="color:var(--ink)">From $300 <span style="font-size:0.6rem;color:var(--ink2);font-weight:300">/ deck</span></div>
+        <div class="addon-pills">
+          <span class="addon-pill">Investor decks</span>
+          <span class="addon-pill">Client proposals</span>
+          <span class="addon-pill">Keynotes</span>
+          <span class="addon-pill">Editable template</span>
+        </div>
+        <a href="https://cal.com/lumen-studio-co/discoverycall" target="_blank" class="addon-cta">Add to project <svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M1 7H13M7 1L13 7L7 13" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="stripe"></div>
+
+<!-- BOOKING -->
+<section class="booking-section" id="book">
+  <div class="section-label">Book a call</div>
+  <div class="booking-inner">
+    <div class="booking-left reveal">
+      <h2 class="booking-title">Let's figure out<br>what you <em>actually need.</em></h2>
+      <p class="booking-desc">No pitch, no pressure. A free 30-minute discovery call to understand your brand, your goals, and whether we're the right fit — before anything is signed.</p>
+      <div class="booking-facts">
+        <div class="booking-fact"><div class="booking-fact-dot" style="background:var(--lime)"></div>30 minutes, completely free</div>
+        <div class="booking-fact"><div class="booking-fact-dot" style="background:var(--sky)"></div>Walk away with clarity on your next step, even if we don't work together</div>
+        <div class="booking-fact"><div class="booking-fact-dot" style="background:var(--lav)"></div>Custom proposal in your inbox within 48 hours if it's a fit</div>
+        <div class="booking-fact"><div class="booking-fact-dot" style="background:var(--peach)"></div>Currently accepting 2 projects — spots go fast</div>
+      </div>
+      <p style="font-family:'DM Mono',monospace;font-size:0.52rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink2)">Or email directly → <a href="mailto:coffee@lumenstudio.in" style="color:var(--ink);text-decoration:none;border-bottom:1px solid var(--border)">coffee@lumenstudio.in</a></p>
+    </div>
+    <div class="booking-calendar reveal" style="animation-delay:0.1s">
+      <!-- Cal.com inline embed -->
+      <div id="cal-embed" style="width:100%;height:100%;min-height:520px;overflow:auto"></div>
+      <script>
+        (function(C,A,L){
+          let p=function(a,ar){a.q.push(ar)};
+          let d=C.document;
+          C.Cal=C.Cal||function(){let cal=C.Cal;let ar=arguments;
+            if(!cal.loaded){cal.ns={};cal.q=cal.q||[];
+            d.head.appendChild(d.createElement("script")).src=A;
+            cal.loaded=true}
+            if(ar[0]===L){let api=function(){p(api,arguments)};
+            let namespace=ar[1];api.q=[];
+            if(typeof namespace==="string"){cal.ns[namespace]=api;p(cal,["initNamespace",namespace])}
+            else p(cal,ar);return}p(cal,ar)};
+          })(window,"https://app.cal.com/embed/embed.js","init");
+        Cal("init", {origin:"https://cal.com"});
+        Cal("inline", {
+          elementOrSelector:"#cal-embed",
+          calLink:"lumen-studio-co/discoverycall",
+          layout:"month_view"
+        });
+        Cal("ui", {
+          theme:"light",
+          styles:{
+            branding:{"brandColor":"#C8F04D"}
+          },
+          hideEventTypeDetails:false
+        });
+      </script>
+    </div>
+  </div>
+</section>
+
+<div class="stripe"></div>
+
+<!-- STATEMENT -->
+<section class="statement">
+  <div class="section-label">Philosophy</div>
+  <p id="stmt">Most brands are <em>forgettable</em> by accident. The best ones are <em>unforgettable</em> by design. We build the second kind.</p>
+</section>
+
+<!-- PROCESS -->
+<section class="section bg-off" id="process">
+  <div class="section-label">Process</div>
+  <div class="section-title">How we <em>work</em></div>
+  <div class="process-steps reveal">
+    <div class="process-step" style="animation-delay:0s">
+      <div class="step-dot" style="background:var(--lime)"></div>
+      <div class="step-n">01</div>
+      <div class="step-name">Discover</div>
+      <p class="step-desc">A free 30-min call to understand your vision, your audience, and whether we're the right fit.</p>
+    </div>
+    <div class="process-step" style="animation-delay:0.1s">
+      <div class="step-dot" style="background:var(--sky)"></div>
+      <div class="step-n">02</div>
+      <div class="step-name">Define</div>
+      <p class="step-desc">Custom proposal, scope, and timeline in your inbox within 48 hours. No generic packages.</p>
+    </div>
+    <div class="process-step" style="animation-delay:0.2s">
+      <div class="step-dot" style="background:var(--lav)"></div>
+      <div class="step-n">03</div>
+      <div class="step-name">Design</div>
+      <p class="step-desc">Two rounds of revisions. Feedback via Notion or Loom. Every pixel earns its place.</p>
+    </div>
+    <div class="process-step" style="animation-delay:0.3s">
+      <div class="step-dot" style="background:var(--mint)"></div>
+      <div class="step-n">04</div>
+      <div class="step-name">Deliver</div>
+      <p class="step-desc">Files, brand guide, fonts, hex codes — everything you need to keep going independently.</p>
+    </div>
+  </div>
+</section>
+
+<div class="stripe"></div>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="cta-bg-word">LUMEN</div>
+  <div class="cta-eyebrow reveal">
+    <svg width="10" height="10" viewBox="0 0 100 100">
+      <g transform="translate(50,50)">
+        <ellipse rx="6" ry="36" fill="#C8F04D" transform="rotate(0)"/>
+        <ellipse rx="6" ry="36" fill="#C8F04D" transform="rotate(45)"/>
+        <ellipse rx="6" ry="36" fill="#C8F04D" transform="rotate(90)"/>
+        <ellipse rx="6" ry="36" fill="#C8F04D" transform="rotate(135)"/>
+      </g>
+    </svg>
+    Currently accepting 2 projects for Q2 2025
+  </div>
+  <h2 class="cta-heading reveal">Your brand deserves<br>to <em>glow.</em></h2>
+  <p class="cta-sub reveal">Let's build something you're actually proud of.</p>
+  <a href="mailto:coffee@lumenstudio.in" class="cta-email reveal">coffee@lumenstudio.in</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-left">
+      <svg width="22" height="22" viewBox="0 0 100 100">
+        <g transform="translate(50,50)">
+          <ellipse rx="8" ry="42" fill="#C8F04D" transform="rotate(0)"/>
+          <ellipse rx="8" ry="42" fill="#C8F04D" transform="rotate(45)"/>
+          <ellipse rx="8" ry="42" fill="#C8F04D" transform="rotate(90)"/>
+          <ellipse rx="8" ry="42" fill="#C8F04D" transform="rotate(135)"/>
+        </g>
+      </svg>
+      <div class="footer-logo-text">Lumen Studio Co.</div>
+    </div>
+    <div class="footer-meta" style="margin-top:6px;margin-left:32px">© 2025 · Ludhiana, India · lumenstudio.co</div>
+  </div>
+  <div class="footer-links">
+    <a href="https://instagram.com/luumen.studio" target="_blank">Instagram</a>
+    <a href="https://www.linkedin.com/company/lumen-studio-co-in/" target="_blank">LinkedIn</a>
+    <a href="/cdn-cgi/l/email-protection#e6858980808383a68a938b8388959293828f89c88f88"><span class="__cf_email__" data-cfemail="90f3fff6f6f5f5d0fce5fdf5fee3e4e5f4f9ffbef9fe">[email&#160;protected]</span></a>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const cursor=document.getElementById('cursor');
+document.addEventListener('mousemove',e=>{
+  cursor.style.left=e.clientX+'px';
+  cursor.style.top=e.clientY+'px';
+},{passive:true});
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>cursor.classList.add('big'));
+  el.addEventListener('mouseleave',()=>cursor.classList.remove('big'));
+});
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled',window.scrollY>60);
+},{passive:true});
+document.querySelectorAll('.hero-title .word').forEach((w,i)=>{
+  w.style.animation='fadeUp 0.75s cubic-bezier(0.16,1,0.3,1) '+(0.5+i*0.13)+'s forwards';
+});
+document.querySelectorAll('.addon-card').forEach(card=>{
+  const line=card.querySelector('.addon-top-line');
+  if(line){
+    card.addEventListener('mouseenter',()=>line.style.transform='scaleX(1)');
+    card.addEventListener('mouseleave',()=>line.style.transform='scaleX(0)');
+  }
+});
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')});
+},{threshold:0.1});
+document.querySelectorAll('.reveal,.process-step').forEach(el=>io.observe(el));
+const stmtEl=document.getElementById('stmt');
+if(stmtEl){
+  new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')});
+  },{threshold:0.45}).observe(stmtEl);
+}
+</script>
+</body>
+</html>
